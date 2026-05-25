@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dutch Tutor</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- LEFT: Chat Panel -->
+    <div id="chat-panel">
+      <div id="chat-header">
+        <span class="flag">🇳🇱</span>
+        <span class="title">Dutch Tutor</span>
+      </div>
+      <div id="messages"></div>
+      <div id="image-preview-wrap" class="hidden">
+        <img id="image-preview" src="" alt="preview">
+        <button id="remove-image">✕</button>
+      </div>
+      <div id="chat-input-area">
+        <button id="image-btn" title="Attach image">📎</button>
+        <input type="file" id="image-input" accept="image/*" style="display:none">
+        <textarea id="chat-input" placeholder="Ask a Dutch question..." rows="2"></textarea>
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div id="divider"></div>
+
+    <!-- RIGHT: Knowledge Panel -->
+    <div id="knowledge-panel">
+      <div id="tab-bar">
+        <button class="tab active" data-tab="map">Knowledge Map</button>
+        <button class="tab" data-tab="cards">Cards</button>
+        <button class="tab" data-tab="flashcards">Flashcards</button>
+        <button class="tab" data-tab="exercises">Fill-in-blank</button>
+      </div>
+
+      <!-- MAP VIEW -->
+      <div id="view-map" class="view active">
+        <div id="map-controls">
+          <button id="reset-zoom">Reset View</button>
+          <span id="map-legend"></span>
+        </div>
+        <svg id="graph-svg"></svg>
+        <div id="node-tooltip" class="tooltip hidden"></div>
+      </div>
+
+      <!-- CARDS VIEW -->
+      <div id="view-cards" class="view hidden">
+        <div id="cards-container">
+          <div id="cards-empty" class="empty-state hidden">
+            <p>No questions yet.</p>
+            <p>Ask something in the chat to create your first knowledge card!</p>
+          </div>
+          <div id="cards-grid"></div>
+        </div>
+      </div>
+
+      <!-- FLASHCARDS VIEW -->
+      <div id="view-flashcards" class="view hidden">
+        <div id="flashcard-container">
+          <div id="no-flashcards" class="empty-state">
+            <p>No flashcards yet.</p>
+            <p>Start asking Dutch questions in the chat!</p>
+          </div>
+          <div id="flashcard-deck" class="hidden">
+            <div id="progress-bar-wrap"><div id="progress-bar"></div></div>
+            <div id="card-counter"></div>
+            <div id="flashcard" class="card">
+              <div class="card-inner">
+                <div class="card-front"><p id="card-front-text"></p></div>
+                <div class="card-back"><p id="card-back-text"></p><span class="flip-hint">click to flip back</span></div>
+              </div>
+            </div>
+            <div id="card-actions" class="hidden">
+              <span class="action-label">How well did you know this?</span>
+              <div id="confidence-btns">
+                <button class="conf-btn" data-score="1">Again</button>
+                <button class="conf-btn" data-score="2">Hard</button>
+                <button class="conf-btn" data-score="3">Good</button>
+                <button class="conf-btn" data-score="4">Easy</button>
+              </div>
+            </div>
+            <div id="deck-complete" class="hidden">
+              <p>🎉 Deck complete!</p>
+              <button id="restart-deck">Review Again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXERCISES VIEW -->
+      <div id="view-exercises" class="view hidden">
+        <div id="exercises-container">
+          <div id="exercises-header">
+            <p>Practice with fill-in-the-blank exercises based on topics you've studied.</p>
+            <button id="generate-exercises">Generate Exercises</button>
+          </div>
+          <div id="exercises-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="graph.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
